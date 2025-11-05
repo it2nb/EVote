@@ -19,21 +19,44 @@
       temporary
     >
         <!--  -->
-        <v-list density="compact">
-            <v-list-subheader>REPORTS</v-list-subheader>
+        <v-list class="mt-3" nav>
             <v-list-item
-                v-for="(item, i) in items"
-                :key="i"
-                :value="item"
                 color="primary"
+                value=""
+                to="/"
             >
                 <template v-slot:prepend>
-                <v-icon :icon="item.icon"></v-icon>
+                <v-icon class="fas fa-home"></v-icon>
                 </template>
-
-                <v-list-item-title v-text="item.text"></v-list-item-title>
+                <v-list-item-title class="font-weight-bold">
+                    หน้าหลัก
+                </v-list-item-title>
             </v-list-item>
-            </v-list>
+            <v-list-item
+                color="primary"
+                value=""
+                to="/candidate"
+            >
+                <template v-slot:prepend>
+                <v-icon class="fas fa-users"></v-icon>
+                </template>
+                <v-list-item-title class="font-weight-bold">
+                    รายชื่อผู้สมัคร
+                </v-list-item-title>
+            </v-list-item>
+            <v-list-item
+                color="primary"
+                value=""
+                to="/developer"
+            >
+                <template v-slot:prepend>
+                <v-icon class="fas fa-code"></v-icon>
+                </template>
+                <v-list-item-title class="font-weight-bold">
+                    ผู้พัฒนา
+                </v-list-item-title>
+            </v-list-item>
+        </v-list>
     </v-navigation-drawer>
 
     <v-main class="bg-grey-lighten-2">

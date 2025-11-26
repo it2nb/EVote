@@ -1,6 +1,6 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize'
 
-const sequelize = new Sequelize('ptcvote', 'root', '12345678', {
+const sequelize = new Sequelize('ptcvote', 'roost', '123456785', {
   host: 'localhost',
   dialect: 'mariadb'
 });

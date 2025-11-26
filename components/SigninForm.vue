@@ -67,14 +67,17 @@ let user = ref({
     userPass: '',
 })
 
-onMounted(()=>{
+onMounted(async ()=>{
     form.value.resetValidation()
+    await $fetch('/api/user').then((users)=>{
+        console.log(users)
+    })
 })
 
 async function login() {
     const { valid } = await form.value.validate()
     if(valid) {
-        
+
     }
 }
 </script>

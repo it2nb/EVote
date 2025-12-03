@@ -90,7 +90,9 @@ async function login() {
             if(res.status) {
                 let data = JSON.parse(JSON.stringify(res.data))
                 sessionStorage.setItem('loginUser', JSON.stringify(data))
-                navigateTo('/Admin', {replace: true})
+                if(data.userStatus == 'Admin') {
+                    navigateTo('/Admin', {replace: true})
+                }
             } else {
                 Swal.fire({
                     title: "ไม่สำเร็จ",

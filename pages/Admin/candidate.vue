@@ -1,6 +1,6 @@
 <template>
     <h1>ข้อมูลผู้สมัคร</h1>
-    <div>
+    <div class="mt-3">
         <CandidateTable />
     </div>
 </template>

@@ -1,0 +1,12 @@
+<template>
+    <h1>ข้อมูลผู้สมัคร</h1>
+    <div>
+        <CandidateTable />
+    </div>
+</template>
+
+<script setup>
+definePageMeta({
+    layout: 'admin-layout'
+})
+</script>

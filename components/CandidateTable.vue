@@ -89,9 +89,7 @@
                 @click="deleteDialog = false"
             ><i class="fas fa-xmark"></i></v-btn>
         </div>
-        <v-card>
-            <v-card-title>ลบข้อมูลผู้สมัคร {{ candidate.candidateName }}</v-card-title>
-        </v-card>
+        <CandidateDeleteForm :candidateID="candidate.candidateID" @deleteStatus="actionStatus" />
     </v-dialog>
 </template>
 

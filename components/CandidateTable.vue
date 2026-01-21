@@ -64,7 +64,7 @@
 
     <v-dialog
       v-model="updateDialog"
-      max-width="600"
+      max-width="800"
       persistent
     >
         <div class="mb-1 text-right">
@@ -74,9 +74,7 @@
                 @click="updateDialog = false"
             ><i class="fas fa-xmark"></i></v-btn>
         </div>
-        <v-card>
-            <v-card-title>แก้ไขข้อมูลผู้สมัคร {{ candidate.candidateName }}</v-card-title>
-        </v-card>
+        <CandidateUpdateForm :candidateID="candidate.candidateID" @updateStatus="actionStatus" />
     </v-dialog>
 
     <v-dialog

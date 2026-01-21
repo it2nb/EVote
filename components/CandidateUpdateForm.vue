@@ -4,17 +4,17 @@
             class="mx-auto my-8"
             elevation="5"
         >
-            <v-card-item class="bg-cyan-darken-3">
+            <v-card-item class="bg-orange-darken-2">
                 <v-card-title class="font-weight-bold pa-3">
-                    <v-icon class="fas fa-user-plus mr-2"></v-icon>
-                    เพิ่มข้อมูลผู้สมัคร
+                    <v-icon class="fas fa-user-edit mr-2"></v-icon>
+                    แก้ไขข้อมูลผู้สมัคร
                 </v-card-title>
             </v-card-item>
 
             <v-card-text class="pa-8">
                 <v-form
                     ref="form"
-                    @submit.prevent="insert"
+                    @submit.prevent="update"
                 >
                     <v-row>
                         <v-col cols="12" md="3">
@@ -58,9 +58,9 @@
                         <v-col cols="12" class="text-center">
                             <v-btn
                                 type="submit"
-                                color="success"
+                                color="warning"
                                 class="w-100 w-md-auto"
-                            >บันทึก</v-btn>
+                            >แก้ไข</v-btn>
                         </v-col>
                     </v-row>
                 </v-form>
@@ -72,10 +72,17 @@
 <script setup>
 import Swal from 'sweetalert2'
 const props = defineProps({
-
+    candidateID: {
+        type: Number,
+        default: 0
+    },
+    candidate: {
+        type: Object,
+        default: ()=>{}
+    }
 });
 
-const emit = defineEmits(['insertStatus'])
+const emit = defineEmits(['updateStatus'])
 
 const form = ref(null)
 
@@ -83,16 +90,32 @@ let candidate = ref({})
 
 onMounted(async ()=>{
     form.value.resetValidation()
+    await getCandidate()
 })
 
-async function insert() {
+async function getCandidate() {
+    let result = await $fetch('/api/candidate', {
+        method: 'GET',
+        params: {
+            fn: 'getByID',
+            candidateID: props.candidateID
+        }
+    })
+
+    if(result.status) {
+        candidate.value = JSON.parse(JSON.stringify(result.data))
+    }
+}
+
+async function update() {
     const { valid } = await form.value.validate()
     if(valid) {
         let res = await $fetch('/api/candidate', {
-            method: 'POST',
+            method: 'PUT',
             body: {
-                fn: 'insert',
-                candidate: candidate.value
+                fn: 'update',
+                candidate: candidate.value,
+                candidateID: props.candidateID
             }
         });
         if(res.status) {
@@ -102,7 +125,7 @@ async function insert() {
                 text: "บันทึกข้อมูลเรียบร้อย",
                 icon: "success"
             })
-            emit('insertStatus', {
+            emit('updateStatus', {
                 status: true,
                 data: data
             })
@@ -112,7 +135,7 @@ async function insert() {
                 text: "บันทึกข้อมูลไม่สำเร็จ",
                 icon: "error"
             })
-            emit('insertStatus', {
+            emit('updateStatus', {
                 status: false
             })
         }

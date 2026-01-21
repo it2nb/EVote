@@ -49,7 +49,7 @@
 
     <v-dialog
       v-model="insertDialog"
-      max-width="600"
+      max-width="800"
       persistent
     >
         <div class="mb-1 text-right">
@@ -59,9 +59,7 @@
                 @click="insertDialog = false"
             ><i class="fas fa-xmark"></i></v-btn>
         </div>
-        <v-card>
-            <v-card-title>เพิ่มข้อมูลผู้สมัคร</v-card-title>
-        </v-card>
+        <CandidateInsertForm @insertStatus="actionStatus"/>
     </v-dialog>
 
     <v-dialog
@@ -145,6 +143,15 @@ async function getCandidates() {
         // candidates.value = response.data
         candidates.value = JSON.parse(JSON.stringify(response.data))
     }
+}
+
+async function actionStatus(res) {
+    if(res.status) {
+        await getCandidates()
+    }
+    insertDialog.value = false
+    updateDialog.value = false
+    deleteDialog.value = false
 }
 
 function showUpdateDialog(item) {
